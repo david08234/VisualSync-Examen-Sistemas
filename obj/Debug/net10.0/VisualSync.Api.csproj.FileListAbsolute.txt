@@ -135,3 +135,10 @@ C:\Users\UserOne\VisualSync.Api\obj\Debug\net10.0\ref\VisualSync.Api.dll
 C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\visualsync-web\.oxlintrc.json
+C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\visualsync-web\package-lock.json
+C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\visualsync-web\package.json
+C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\visualsync-web\tsconfig.app.json
+C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\visualsync-web\tsconfig.json
+C:\Users\UserOne\VisualSync.Api\bin\Debug\net10.0\visualsync-web\tsconfig.node.json
+C:\Users\UserOne\VisualSync.Api\obj\Debug\net10.0\VisualSync.Api.sourcelink.json

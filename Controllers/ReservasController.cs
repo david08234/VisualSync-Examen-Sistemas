@@ -41,6 +41,17 @@ public class ReservasController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Reserva>> PostReserva(Reserva reserva)
     {
+        // 1. Validar si la fecha y hora ya están ocupadas por otra reserva activa
+        bool fechaOcupada = await _context.Reservas
+            .AnyAsync(r => r.FechaEvento == reserva.FechaEvento && r.EstadoReserva != "Cancelada");
+
+        if (fechaOcupada)
+        {
+            // 2. Retorna el código 409 (Conflicto) que el frontend de React está esperando
+            return Conflict(new { detail = "Ya existe una reserva para esta fecha y hora. Por favor, elige otro horario." });
+        }
+
+        // 3. Si la fecha está libre, guarda la reserva normalmente
         _context.Reservas.Add(reserva);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetReserva), new { id = reserva.IdReserva }, reserva);

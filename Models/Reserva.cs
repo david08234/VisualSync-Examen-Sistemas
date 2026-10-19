@@ -8,10 +8,10 @@ public class Reserva
     public int IdReserva { get; set; }
 
     public int IdUsuario { get; set; }
-    public Usuario Usuario { get; set; } = null!;
+    public Usuario? Usuario { get; set; } // <- Cambio aquí
 
     public int IdPaquete { get; set; }
-    public PaqueteServicio Paquete { get; set; } = null!;
+    public PaqueteServicio? Paquete { get; set; } // <- Cambio aquí
 
     public DateTime FechaEvento { get; set; }
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VisualSync.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bc6ee2a0302be457e7af06c27b755f61d551041")]
 [assembly: System.Reflection.AssemblyProductAttribute("VisualSync.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VisualSync.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
