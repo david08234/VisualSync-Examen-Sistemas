@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VisualSync.Api.Data;
+using VisualSync.Api.DTOs;
 using VisualSync.Api.Models;
 
 namespace VisualSync.Api.Controllers;
@@ -11,60 +13,70 @@ public class PaquetesServicioController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public PaquetesServicioController(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+    public PaquetesServicioController(ApplicationDbContext context) => _context = context;
 
+    // PÚBLICO: catálogo de paquetes activos
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<PaqueteServicio>>> GetPaquetes()
-    {
-        return await _context.PaquetesServicio.ToListAsync();
-    }
+    public async Task<ActionResult<IEnumerable<PaqueteServicio>>> GetPaquetes() =>
+        await _context.PaquetesServicio.Where(p => p.Activo).ToListAsync();
 
-    [HttpGet("{id}")]
+    // PÚBLICO: detalle de un paquete activo
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<PaqueteServicio>> GetPaquete(int id)
     {
         var paquete = await _context.PaquetesServicio.FindAsync(id);
-        if (paquete == null) return NotFound();
+        if (paquete == null || !paquete.Activo) return NotFound();
         return paquete;
     }
 
+    // ADMIN: crear
+    [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<ActionResult<PaqueteServicio>> PostPaquete(PaqueteServicio paquete)
+    public async Task<ActionResult<PaqueteServicio>> PostPaquete(PaqueteCrearDto dto)
     {
+        var paquete = new PaqueteServicio
+        {
+            Nombre = dto.Nombre,
+            Descripcion = dto.Descripcion,
+            Precio = dto.Precio,
+            Duracion = dto.Duracion,
+            CantidadFotos = dto.CantidadFotos,
+            IncluyeVideo = dto.IncluyeVideo,
+            Activo = true
+        };
         _context.PaquetesServicio.Add(paquete);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetPaquete), new { id = paquete.IdPaquete }, paquete);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutPaquete(int id, PaqueteServicio paquete)
+    // ADMIN: actualizar
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<PaqueteServicio>> PutPaquete(int id, PaqueteCrearDto dto)
     {
-        if (id != paquete.IdPaquete) return BadRequest();
+        var paquete = await _context.PaquetesServicio.FindAsync(id);
+        if (paquete == null) return NotFound();
 
-        _context.Entry(paquete).State = EntityState.Modified;
+        paquete.Nombre = dto.Nombre;
+        paquete.Descripcion = dto.Descripcion;
+        paquete.Precio = dto.Precio;
+        paquete.Duracion = dto.Duracion;
+        paquete.CantidadFotos = dto.CantidadFotos;
+        paquete.IncluyeVideo = dto.IncluyeVideo;
 
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.PaquetesServicio.Any(e => e.IdPaquete == id)) return NotFound();
-            else throw;
-        }
-
-        return NoContent();
+        await _context.SaveChangesAsync();
+        return paquete;
     }
 
-    [HttpDelete("{id}")]
+    // ADMIN: desactivar (baja lógica)
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeletePaquete(int id)
     {
         var paquete = await _context.PaquetesServicio.FindAsync(id);
         if (paquete == null) return NotFound();
 
-        _context.PaquetesServicio.Remove(paquete);
+        paquete.Activo = false;
         await _context.SaveChangesAsync();
         return NoContent();
     }
