@@ -20,3 +20,6 @@ export async function descargarFoto(id: number, nombreArchivo: string) {
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
+
+

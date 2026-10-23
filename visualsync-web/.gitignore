@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Archivos de configuracion con contraseñas
+.env
+appsettings.json
+appsettings.Development.json
+
+# Carpetas compiladas de C# (.NET)
+bin/
+obj/
+Storage/

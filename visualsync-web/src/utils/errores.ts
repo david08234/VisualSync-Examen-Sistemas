@@ -21,3 +21,5 @@ export function mensajeDeError(e: unknown): string {
   
   return 'Ocurrió un error desconocido.';
 }
+
+
