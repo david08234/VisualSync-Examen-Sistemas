@@ -15,17 +15,18 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit = async (data: any) => {
+const onSubmit = async (data: any) => {
     setErrorApi('');
     try {
       const res = await loginUsuario(data);
-      login(res.token, res.usuario);
+      // Aquí agregamos "as any" para evitar el conflicto del rol
+      login(res.token, res.usuario as any); 
       navigate(res.usuario.rol === 'Admin' ? '/admin' : '/mis-reservas');
     } catch (error: any) {
       setErrorApi(error.response?.data?.detail || 'Credenciales incorrectas o error en el servidor.');
     }
   };
-
+  
   return (
     <div className="row justify-content-center">
       <div className="col-12 col-md-6 col-lg-4">
