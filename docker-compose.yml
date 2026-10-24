@@ -3,10 +3,20 @@ services:
   api:
     build: .
     ports:
-      - "8080:8080"
+      - "5044:8080"
     env_file:
       - .env
+    volumes:
+      - storage:/app/Storage
   web:
-    build: ./visualsync-web
+    build:
+      context: ./visualsync-web
+      args:
+        VITE_API_URL: http://localhost:5044/api
     ports:
-      - "80:80"
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  storage:
