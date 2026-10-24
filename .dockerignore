@@ -1,0 +1,8 @@
+bin/
+obj/
+.git/
+visualsync-web/
+Storage/
+appsettings.json
+appsettings.Development.json
+.env
