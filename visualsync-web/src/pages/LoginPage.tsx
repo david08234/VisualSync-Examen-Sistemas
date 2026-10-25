@@ -21,7 +21,7 @@ const onSubmit = async (data: any) => {
       const res = await loginUsuario(data);
       // Aquí agregamos "as any" para evitar el conflicto del rol
       login(res.token, res.usuario as any); 
-      navigate(res.usuario.rol === 'Admin' ? '/admin' : '/mis-reservas');
+      navigate(res.usuario.rol === 'Administrador' ? '/admin' : '/mis-reservas');
     } catch (error: any) {
       setErrorApi(error.response?.data?.detail || 'Credenciales incorrectas o error en el servidor.');
     }

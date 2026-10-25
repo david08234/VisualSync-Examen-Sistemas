@@ -8,7 +8,7 @@ namespace VisualSync.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "Administrador")] // Solo los usuarios con el rol "Administrador" pueden acceder a este controlador
+[Authorize(Roles = "Administrador,Clientes")] // Solo los usuarios con el rol "Administrador" pueden acceder a este controlador
 public class UsuariosController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
